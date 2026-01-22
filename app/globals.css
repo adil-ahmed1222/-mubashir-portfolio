@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-950 text-slate-100 antialiased transition-colors duration-300;
+}
+
+html.light body {
+  @apply bg-slate-50 text-slate-900;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-slate-700/70;
+}
+
+.glass-panel {
+  @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-soft dark:bg-white/5;
+}
+
+.section-divider {
+  @apply relative mx-auto h-px w-full max-w-4xl bg-gradient-to-r from-transparent via-white/30 to-transparent dark:via-white/10;
+}
+
+.gradient-text {
+  @apply bg-gradient-to-r from-primary-400 via-accent to-primary-500 bg-clip-text text-transparent;
+}
+
+@layer components {
+  .btn-premium {
+    @apply inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-medium text-white shadow-glow transition-all hover:-translate-y-1 hover:bg-white/15 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 dark:border-white/10;
+  }
+
+  .btn-premium-light {
+    @apply inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-6 py-3 text-sm font-medium text-slate-900 shadow-soft transition-all hover:-translate-y-1 hover:border-primary-300 hover:shadow-glow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300;
+  }
+}
