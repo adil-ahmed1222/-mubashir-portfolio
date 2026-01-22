@@ -1,7 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useAnimation, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/data/portfolio";
 import {
@@ -12,11 +13,32 @@ import {
 } from "@/lib/motion";
 
 export function Projects() {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const controls = useAnimation();
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    if (isInView) {
+      controls.start("show");
+    }
+  }, [isInView, controls]);
+
+  useEffect(() => {
+    if (isInView) {
+      return;
+    }
+    if (typeof window === "undefined") {
+      return;
+    }
+    const fallback = window.setTimeout(() => controls.start("show"), 1600);
+    return () => window.clearTimeout(fallback);
+  }, [isInView, controls]);
+
   return (
     <motion.div
+      ref={containerRef}
       initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.3 }}
+      animate={controls}
       variants={staggerContainer(0.18, 0.1)}
       className="space-y-8"
     >
